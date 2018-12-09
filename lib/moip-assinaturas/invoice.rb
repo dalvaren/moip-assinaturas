@@ -39,6 +39,21 @@ module Moip::Assinaturas
         end
       end
 
+      def repay(invoice_code, opts={})
+        response = Moip::Assinaturas::Client.repay_invoice(invoice_code, opts)
+        hash     = JSON.load(response.body).with_indifferent_access
+
+        case response.code
+        when 200
+          return {
+            success:  true,
+            invoices: hash[:invoices]
+          }
+        else
+          raise(WebServerResponseError, "Ocorreu um erro no retorno do webservice")
+        end
+      end
+
     end
   end
 end

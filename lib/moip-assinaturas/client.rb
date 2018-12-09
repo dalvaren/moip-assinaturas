@@ -10,7 +10,7 @@ module Moip::Assinaturas
 
   class Client
     include HTTParty
-    
+
     if Moip::Assinaturas.http_debug
       debug_output $stdout
     end
@@ -110,9 +110,14 @@ module Moip::Assinaturas
         peform_action!(:get, "/subscriptions/#{subscription_code}/invoices", opts)
       end
 
-      def details_invoice(id, opts={})
+      def details_invoice(invoice_id, opts={})
         prepare_options(opts, { headers: { 'Content-Type' => 'application/json' } })
-        peform_action!(:get, "/invoices/#{id}", opts, true)
+        peform_action!(:get, "/invoices/#{invoice_id}", opts, true)
+      end
+
+      def repay_invoice(invoice_id, opts={})
+        prepare_options(opts, { headers: { 'Content-Type' => 'application/json' } })
+        peform_action!(:post, "/invoices/#{invoice_id}/retry", opts)
       end
 
       def list_payments(invoice_id, opts={})
