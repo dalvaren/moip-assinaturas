@@ -117,7 +117,7 @@ module Moip::Assinaturas
 
       def repay_invoice(invoice_id, opts={})
         prepare_options(opts, { headers: { 'Content-Type' => 'application/json' } })
-        peform_action!(:post, "/invoices/#{invoice_id}/retry", opts)
+        peform_action!(:post, "/invoices/#{invoice_id}/retry", opts, true)
       end
 
       def list_payments(invoice_id, opts={})
