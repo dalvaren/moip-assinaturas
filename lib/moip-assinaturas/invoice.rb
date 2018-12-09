@@ -48,7 +48,7 @@ module Moip::Assinaturas
         when 200
           return {
             success:  true,
-            invoices: hash[:invoices]
+            invoice: hash
           }
         when 400
           return {
