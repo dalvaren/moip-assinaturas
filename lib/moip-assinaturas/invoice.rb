@@ -41,7 +41,8 @@ module Moip::Assinaturas
 
       def repay(invoice_code, opts={})
         response = Moip::Assinaturas::Client.repay_invoice(invoice_code, opts)
-        hash     = JSON.load(response.body).with_indifferent_access
+        hash     = JSON.load(response.body)
+        hash     = hash.with_indifferent_access if hash
 
         case response.code
         when 200
